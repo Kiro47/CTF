@@ -22,6 +22,7 @@ public class CTFCommand implements CommandExecutor{
 		
 		if (args.length == 0) {
 			p.sendMessage(init);
+			p.sendMessage(ChatColor.RED + "Please Specify an argument! Use /ctf help for a list of commands!");
 			return true;
 		}
 		
