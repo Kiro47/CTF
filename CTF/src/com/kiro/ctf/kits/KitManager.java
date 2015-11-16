@@ -1,14 +1,8 @@
 package com.kiro.ctf.kits;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import com.kiro.ctf.utils.SettingsManager;
 
 public class KitManager {
 
@@ -18,38 +12,14 @@ private static KitManager instance = new KitManager();
 		return instance;
 	}
 	
-	private ArrayList<Kit> kits;
-	private Inventory gui;
+	private ArrayList<String> kits;
 
 	private KitManager() {
-		kits = new ArrayList<Kit>();
-		
-		kits.add(new DefaultKit());
-		// TODO: Add all other kits.
-		
-		gui = Bukkit.getServer().createInventory(null, InventoryType.CHEST, ChatColor.GOLD + "Kit Selector");
-		
-		for (Kit kit : kits) {
-			ItemStack item = new ItemStack(kit.getItems().get(0).getType(), 1);
-			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName(kit.getName());
-			meta.setLore(Arrays.asList("Click here", "to select", "the " + kit.getName() + " kit."));
-			item.setItemMeta(meta);
-			gui.addItem(item);
-		}
+		kits = new ArrayList<String>();
+		kits.addAll(SettingsManager.getKits().getKeys());
 	}
-	
-	public Kit getKit(String name) {
-		for (Kit kit : kits) {
-			if (kit.getName().equals(name)) {
-				return kit;
-			}
-		}
+	public String kitList() {
+		return kits.toString();
 		
-		return null;
-	}
-	
-	public Inventory getGUI() {
-		return gui;
 	}
 }

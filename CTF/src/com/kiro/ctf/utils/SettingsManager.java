@@ -14,7 +14,8 @@ public class SettingsManager {
 	private static final SettingsManager 
 			configuration = new SettingsManager("config"), 
 			arenas = new SettingsManager("arenas"),
-			signs = new SettingsManager("signs");
+			signs = new SettingsManager("signs"),
+			kits = new SettingsManager("kits");
 
 	public static SettingsManager getConfig() {
 		return configuration;
@@ -26,6 +27,10 @@ public class SettingsManager {
 
 	public static SettingsManager getSigns() {
 		return signs;
+	}
+	
+	public static SettingsManager getKits() {
+		return kits;
 	}
 
 	private File file;

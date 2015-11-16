@@ -14,8 +14,6 @@ import org.bukkit.inventory.ItemStack;
 
 import com.kiro.ctf.CTFMain;
 import com.kiro.ctf.Spawn;
-import com.kiro.ctf.kits.Kit;
-import com.kiro.ctf.kits.KitManager;
 import com.kiro.ctf.utils.Countdown;
 import com.kiro.ctf.utils.SettingsManager;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
@@ -164,13 +162,13 @@ public class Arena {
 		
 		for (Player p : players) {
             if (p.getInventory().contains(kitSelector)){
-                Kit kit = KitManager.getInstance().getKit("Default");
+    //            Kit kit = KitManager.getInstance().getKit("Default");
 
                 p.getInventory().clear();
 
-                for (ItemStack item : kit.getItems()) {
-                    p.getInventory().addItem(item);
-                }
+//                for (ItemStack item : kit.getItems()) {
+//                    p.getInventory().addItem(item);
+//                }
             }
 			p.setHealth(20.0D);
 			p.setGameMode(GameMode.SURVIVAL);
