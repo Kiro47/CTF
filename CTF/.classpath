@@ -5,5 +5,8 @@
 	<classpathentry kind="lib" path="C:/Users/Kiro/Desktop/1.8 Trial Server/plugins/Vault.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Kiro/Desktop/1.8 Trial Server/spigot.jar" sourcepath="C:/Users/Kiro/Desktop/1.8 Trial Server/SpigotAPI.zip"/>
 	<classpathentry kind="lib" path="C:/Users/Kiro/Desktop/1.8 Trial Server/plugins/WorldEdit.jar"/>
+	<classpathentry kind="lib" path="/home/ssm5/Desktop/1.8.8_Server/spigot.jar" sourcepath="/home/ssm5/Desktop/APIs/Spig/SpigotAPI.zip"/>
+	<classpathentry kind="lib" path="/home/ssm5/Desktop/Dropbox/0GitMaster/,Resources/worldedit-bukkit-6.1 (1).jar"/>
+	<classpathentry kind="lib" path="/home/ssm5/Dropbox/0GitMaster/,Resources/Vault.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

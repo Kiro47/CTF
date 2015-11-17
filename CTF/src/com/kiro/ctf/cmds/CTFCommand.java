@@ -82,6 +82,18 @@ public class CTFCommand implements CommandExecutor{
 			p.sendMessage(prefix + ChatColor.GREEN + "Saved Kits: " + ChatColor.LIGHT_PURPLE + KitManager.getInstance().kitList() );
 			return true;
 		}
+		if (args[0].equalsIgnoreCase("setarena")) {
+			if (!(args.length == 2)) {
+				p.sendMessage(ChatColor.RED + "Please specify a name for the arena!");
+				p.sendMessage(ChatColor.DARK_RED + "/ctf setarena <ArenaName");
+				return true;
+			}
+			else {
+				
+				
+			}
+		
+		}
 		
 		if (args[0] == null) {
 			p.sendMessage(init);
