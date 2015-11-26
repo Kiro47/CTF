@@ -22,3 +22,5 @@ public class ArenaMethods {
 			SettingsManager.getArenas().set(loc + ".cornerA", "FIX THIS TEMP");
 			return true;
 }
+	}
+}
