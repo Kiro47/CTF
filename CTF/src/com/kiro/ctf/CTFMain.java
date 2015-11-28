@@ -14,6 +14,7 @@ public class CTFMain extends JavaPlugin{
 	public void onEnable() {
 		getCommand("ctf").setExecutor(new CTFCommand());
 		
+		SpawnMethods.setupTeams();
 	}
 	public void onDisable(){
 		
