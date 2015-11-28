@@ -1,0 +1,80 @@
+package com.kiro.ctf.cmds;
+
+import java.util.Iterator;
+
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
+import com.kiro.ctf.CTFMain;
+import com.kiro.ctf.arena.Arena;
+import com.kiro.ctf.arena.ArenaManager;
+import com.kiro.ctf.utils.SettingsManager;
+import com.sk89q.worldedit.bukkit.selections.Selection;
+
+public class arena {
+
+	private static String prefix = (ChatColor.GOLD + "[" + ChatColor.AQUA
+			+ "CTF" + ChatColor.GOLD + "]  ");
+
+	@SuppressWarnings("deprecation")
+	public static void delete(final Player p, String arenaName) {
+
+		final Player player = p;
+		final String name = arenaName;
+		p.sendMessage(ChatColor.GOLD
+				+ "Please confirm or deny deleting arena: " + name);
+		p.sendMessage(ChatColor.GOLD + "Confirm with: /yes  or  /no");
+		confirm.needsConfirmed.add(p);
+		CTFMain.getPlugin().getServer().getScheduler()
+				.scheduleAsyncDelayedTask(CTFMain.getPlugin(), new Runnable() {
+					public void run() {
+						if (confirm.needsConfirmed.contains(player)) {
+							player.sendMessage(ChatColor.DARK_RED
+									+ "Deletion of arena neither confirmed nor denied! Deletion Request for kit: "
+									+ name + " has been cancelled!");
+							confirm.needsConfirmed.remove(player);
+							return;
+						} else {
+							return;
+						}
+					}
+				}, (long) 200);
+		if (confirm.confirmAction(p) == true) {
+			SettingsManager.getArenas().set(name, null);
+			p.sendMessage(ChatColor.GREEN + "Arena: " + name
+					+ " has been succefully deleted!");
+			p.sendMessage(ChatColor.GREEN + "Only Effective after a reload!");
+			SettingsManager.getArenas().save();
+			return;
+		} else {
+			p.sendMessage(ChatColor.RED + "Deletion of arena: " + name
+					+ " has been cancelled!");
+			return;
+		}
+
+	}
+
+	public static void create(Player p, String arenaName, Selection sel) {
+
+		SettingsManager.getArenas().createSection(arenaName);
+		SettingsManager.getArenas().set(arenaName + ".world",
+				sel.getWorld().getName());
+		CTFMain.saveLocation(sel.getMinimumPoint(), SettingsManager.getArenas()
+				.createSection(arenaName + ".cornerA"));
+		CTFMain.saveLocation(sel.getMaximumPoint(), SettingsManager.getArenas()
+				.createSection(arenaName + ".cornerB"));
+		SettingsManager.getArenas().save();
+		ArenaManager.getInstance().setup();
+		p.sendMessage(prefix + ChatColor.GREEN + "Created Arena:" + arenaName
+				+ ", Please set spawns now.");
+		return;
+
+	}
+
+	public static void list(Player p) {
+		Iterator<Arena> it = ArenaManager.getInstance().getArenas().iterator();
+		while (it.hasNext()) {
+			p.sendMessage(ChatColor.LIGHT_PURPLE + it.next().toString());
+		}
+	}
+}
