@@ -26,8 +26,8 @@ public class CTFCommands implements CommandExecutor {
 	public boolean onCommand(CommandSender s, Command command, String label,
 			String[] args) {
 
-		String init = ChatColor.GOLD + "[" + ChatColor.AQUA + "CTF"
-				+ ChatColor.GOLD + "]";
+		String init = Chat.center(ChatColor.GOLD + "[" + ChatColor.AQUA + "CTF"
+				+ ChatColor.GOLD + "]");
 		String prefix = (ChatColor.GOLD + "[" + ChatColor.AQUA + "CTF"
 				+ ChatColor.GOLD + "]  ");
 		if (!(s instanceof Player)) {
@@ -55,27 +55,9 @@ public class CTFCommands implements CommandExecutor {
 			}
 			String pre = prefix + ChatColor.LIGHT_PURPLE + "/ctf ";
 			p.sendMessage(Chat.center(init));
-			p.sendMessage(pre + ChatColor.LIGHT_PURPLE + "setkit <KitName>  ; "
-					+ ChatColor.GOLD
-					+ "Saves your current inventory and armor as a kit.");
-			p.sendMessage(pre + ChatColor.LIGHT_PURPLE + "loadkit <KitName> ; "
-					+ ChatColor.GOLD
-					+ "Replaces your current inventory with a saved kit!");
-			p.sendMessage(pre + ChatColor.LIGHT_PURPLE
-					+ "listkit               ; " + ChatColor.GOLD
-					+ "Lists the available kits that have been made!");
-			p.sendMessage(pre + ChatColor.LIGHT_PURPLE + "delkit <KitName>  ; "
-					+ ChatColor.GOLD + "Deletes a kit from the config file!");
-			p.sendMessage(pre + ChatColor.LIGHT_PURPLE
-					+ "setarena <ArenaName>  ; " + ChatColor.GOLD
-					+ "Sets an arena!");
-			p.sendMessage(pre + ChatColor.LIGHT_PURPLE
-					+ "delarena <ArenaName>  ; " + ChatColor.GOLD
-					+ "Deletes an arena from the config file!");
-
-			p.sendMessage(pre + ChatColor.LIGHT_PURPLE
-					+ "help                ; " + ChatColor.GOLD
-					+ "Displays this message!");
+			p.sendMessage(pre +  ChatColor.LIGHT_PURPLE + "kit <set||delete||load||list> [KitName]");
+			p.sendMessage(pre + ChatColor.LIGHT_PURPLE + "arena <create||delete||list> [ArenaName] ");
+			p.sendMessage(pre + ChatColor.LIGHT_PURPLE + "setspawn <Arena> <Team>");
 			// HELP COMMAND
 			return true;
 		}
@@ -115,13 +97,13 @@ public class CTFCommands implements CommandExecutor {
 	/////////////////// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		if (args[0].equalsIgnoreCase("kit")) {
 
-			if (!(args.length == 2) || !(args.length == 3)) {
+			if (!(args.length == 2) && !(args.length == 3)) {
 				p.sendMessage(Chat.center(init));
-				p.sendMessage(ChatColor.LIGHT_PURPLE + "/ctf kit list");
-				p.sendMessage(ChatColor.LIGHT_PURPLE + "/ctf kit set <KitName>");
-				p.sendMessage(ChatColor.LIGHT_PURPLE
+				p.sendMessage(prefix + ChatColor.LIGHT_PURPLE + "/ctf kit list");
+				p.sendMessage(prefix + ChatColor.LIGHT_PURPLE + "/ctf kit set <KitName>");
+				p.sendMessage(prefix + ChatColor.LIGHT_PURPLE
 						+ "/ctf kit delete <KitName>");
-				p.sendMessage(ChatColor.LIGHT_PURPLE
+				p.sendMessage(prefix + ChatColor.LIGHT_PURPLE
 						+ "/ctf kit load <KitName>");
 				return true;
 			}
@@ -144,9 +126,9 @@ public class CTFCommands implements CommandExecutor {
 					return true;
 				}
 				if (!(args.length == 3)) {
-					p.sendMessage(ChatColor.RED
+					p.sendMessage(prefix + ChatColor.RED
 							+ "Please specify a kit to delete!");
-					p.sendMessage(ChatColor.DARK_RED
+					p.sendMessage(prefix + ChatColor.DARK_RED
 							+ "/ctf kit delete <KitName>");
 					return true;
 				}
@@ -166,19 +148,19 @@ public class CTFCommands implements CommandExecutor {
 					return true;
 				}
 				if (!(args.length == 3)) {
-					p.sendMessage(ChatColor.RED
+					p.sendMessage(prefix + ChatColor.RED
 							+ "Please specify a kit to delete!");
-					p.sendMessage(ChatColor.DARK_RED + "/ctf kit set <KitName>");
+					p.sendMessage(prefix + ChatColor.DARK_RED + "/ctf kit set <KitName>");
 					return true;
 				}
-				if (SettingsManager.getKits().get(args[2]) == null) {
+				if (SettingsManager.getKits().get(args[2]) != null) {
 					p.sendMessage(prefix + ChatColor.RED + "The kit " + args[2]
 							+ " is not a valid kit!");
 					return true;
 				} else {
-					LoadoutUtils.saveKit(p, args[1]);
+					LoadoutUtils.saveKit(p, args[2]);
 					p.sendMessage(prefix + ChatColor.GREEN + "Kit "
-							+ ChatColor.LIGHT_PURPLE + args[1]
+							+ ChatColor.LIGHT_PURPLE + args[2]
 							+ ChatColor.GREEN + " succesfully saved");
 					return true;
 				}
@@ -190,22 +172,22 @@ public class CTFCommands implements CommandExecutor {
 					return true;
 				}
 				if (!(args.length == 3)) {
-					p.sendMessage(ChatColor.RED
+					p.sendMessage(prefix + ChatColor.RED
 							+ "Please specify a kit to delete!");
-					p.sendMessage(ChatColor.DARK_RED
+					p.sendMessage(prefix + ChatColor.DARK_RED
 							+ "/ctf kit load <KitName>");
 					return true;
 				} else {
 
-					if (LoadoutUtils.loadKit(p, args[1]) == false) {
+					if (LoadoutUtils.loadKit(p, args[2]) == false) {
 						p.sendMessage(prefix + ChatColor.RED + "Kit: "
-								+ ChatColor.LIGHT_PURPLE + args[1]
+								+ ChatColor.LIGHT_PURPLE + args[2]
 								+ ChatColor.RED + " is an invalid kit name!");
 						return true;
 					} else {
-						LoadoutUtils.loadKit(p, args[1]);
+						LoadoutUtils.loadKit(p, args[2]);
 						p.sendMessage(prefix + ChatColor.GREEN + "Kit: "
-								+ ChatColor.LIGHT_PURPLE + args[1]
+								+ ChatColor.LIGHT_PURPLE + args[2]
 								+ ChatColor.GREEN + " has been loaded");
 						return true;
 					}
@@ -217,12 +199,12 @@ public class CTFCommands implements CommandExecutor {
 		}
 		if (args[0].equalsIgnoreCase("arena")) {
 
-			if (!(args.length == 2) || !(args.length == 3)) {
+			if (!(args.length == 2) && !(args.length == 3)) {
 				p.sendMessage(Chat.center(init));
-				p.sendMessage(ChatColor.LIGHT_PURPLE + "/ctf arena list");
-				p.sendMessage(ChatColor.LIGHT_PURPLE
+				p.sendMessage(prefix + ChatColor.LIGHT_PURPLE + "/ctf arena list");
+				p.sendMessage(prefix + ChatColor.LIGHT_PURPLE
 						+ "/ctf arena create <KitName>");
-				p.sendMessage(ChatColor.LIGHT_PURPLE
+				p.sendMessage(prefix + ChatColor.LIGHT_PURPLE
 						+ "/ctf arena delete <KitName>");
 				return true;
 			}
@@ -232,8 +214,7 @@ public class CTFCommands implements CommandExecutor {
 					p.sendMessage(noPerm);
 					return true;
 				} else {
-					p.sendMessage(prefix + "Arenas: ");
-					arena.list(p);
+					p.sendMessage(prefix + ChatColor.GREEN + "Arenas: " + ChatColor.LIGHT_PURPLE + ArenaManager.getInstance().getArenas().toString());
 					return true;
 				}
 			}
@@ -244,15 +225,15 @@ public class CTFCommands implements CommandExecutor {
 					return true;
 				}
 				if (!(args.length == 3)) {
-					p.sendMessage(ChatColor.RED
+					p.sendMessage(prefix + ChatColor.RED
 							+ "Please specify an arena to delete!");
-					p.sendMessage(ChatColor.DARK_RED
+					p.sendMessage(prefix + ChatColor.DARK_RED
 							+ "/ctf arena delete <ArenaName>");
 					return true;
 				}
 				final String name = args[1];
 				if (ArenaManager.getInstance().getArena(name) == null) {
-					p.sendMessage(ChatColor.RED + "The arena " + name
+					p.sendMessage(prefix + ChatColor.RED + "The arena " + name
 							+ " does not exist!");
 					return true;
 				} else {
@@ -267,21 +248,21 @@ public class CTFCommands implements CommandExecutor {
 					return true;
 				}
 				if (!(args.length == 3)) {
-					p.sendMessage(ChatColor.RED
+					p.sendMessage(prefix + ChatColor.RED
 							+ "Please specify an arena to delete!");
-					p.sendMessage(ChatColor.DARK_RED
+					p.sendMessage(prefix + ChatColor.DARK_RED
 							+ "/ctf arena create <ArenaName>");
 					return true;
 				}
 				String arenaName = args[2];
 				if (ArenaManager.getInstance().getArena(arenaName) != null) {
-					p.sendMessage(ChatColor.RED
+					p.sendMessage(prefix + ChatColor.RED
 							+ "An arena with that name already exists!");
 					return true;
 				}
 				Selection sel = CTFMain.getWorldEdit().getSelection(p);
 				if (sel == null) {
-					p.sendMessage(ChatColor.RED
+					p.sendMessage(prefix + ChatColor.RED
 							+ "Please make a worldedit selection for the arena!");
 					return true;
 				} else {
@@ -301,7 +282,7 @@ public class CTFCommands implements CommandExecutor {
 		}
 		
 		else {
-			p.sendMessage(prefix + ChatColor.RED + "Invalid argument. Use" + ChatColor.LIGHT_PURPLE +  "/ctf help" + ChatColor.RED + " for help!");
+			p.sendMessage(prefix + ChatColor.RED + "Invalid argument. Use" + ChatColor.LIGHT_PURPLE +  " /ctf help" + ChatColor.RED + " for help!");
 			return true;
 		}
 	}

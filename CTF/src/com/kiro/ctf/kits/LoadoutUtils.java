@@ -8,7 +8,7 @@ import com.kiro.ctf.utils.SettingsManager;
 public class LoadoutUtils {
 
 	public static boolean loadKit(Player p,String loadout) {
-		if (SettingsManager.getKits().get(loadout + ".inv.0") == null) {
+		if (SettingsManager.getKits().get(loadout) == null) {
 			return false;
 		}
 		p.getInventory().setItem(0, (ItemStack) SettingsManager.getKits().get(loadout +".inv.0"));

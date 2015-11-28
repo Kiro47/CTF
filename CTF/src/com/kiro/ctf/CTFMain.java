@@ -6,14 +6,16 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.kiro.ctf.cmds.CTFCommand;
+import com.kiro.ctf.arena.ArenaManager;
+import com.kiro.ctf.cmds.CTFCommands;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
 public class CTFMain extends JavaPlugin{
 
 	public void onEnable() {
-		getCommand("ctf").setExecutor(new CTFCommand());
+		getCommand("ctf").setExecutor(new CTFCommands());
 		
+		ArenaManager.getInstance().setup();
 		SpawnMethods.setupTeams();
 	}
 	public void onDisable(){

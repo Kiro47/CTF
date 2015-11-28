@@ -77,14 +77,14 @@ public class SpawnMethods {
 		 SettingsManager.getArenas().save();
 		 
 		 p.getLocation().getWorld().getBlockAt(p.getLocation().subtract(0.0, 1.0, 0.0)).setType(Material.GLOWSTONE);
-		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(1.0, -1.0, 0.0)).setTypeIdAndData(Material.WOOD.getId(), teamToWool(team), false);
-		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(1.0, -1.0, -1.0)).setTypeIdAndData(Material.WOOD.getId(), teamToWool(team), false);
-		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(0.0, -1.0, -1.0)).setTypeIdAndData(Material.WOOD.getId(), teamToWool(team), false);
-		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(-1.0, -1.0, -1.0)).setTypeIdAndData(Material.WOOD.getId(), teamToWool(team), false);
-		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(-1.0, -1.0, 0.0)).setTypeIdAndData(Material.WOOD.getId(), teamToWool(team), false);
-		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(-1.0, -1.0, 1.0)).setTypeIdAndData(Material.WOOD.getId(), teamToWool(team), false);
-		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(0.0, -1.0, 1.0)).setTypeIdAndData(Material.WOOD.getId(), teamToWool(team), false);
-		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(1.0, -1.0, 1.0)).setTypeIdAndData(Material.WOOD.getId(), teamToWool(team), false);
+		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(1.0, -1.0, 0.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
+		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(1.0, -1.0, -1.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
+		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(0.0, -1.0, -1.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
+		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(-1.0, -1.0, -1.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
+		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(-1.0, -1.0, 0.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
+		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(-1.0, -1.0, 1.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
+		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(0.0, -1.0, 1.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
+		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(1.0, -1.0, 1.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
 		 
 		 p.sendMessage(prefix + ChatColor.GREEN + a.getID()  + "'s spawn for team " + team+ " has been set!");
 		 return ;

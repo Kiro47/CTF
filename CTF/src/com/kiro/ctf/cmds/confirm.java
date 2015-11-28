@@ -34,7 +34,10 @@ public class confirm implements Listener{
 		}
 		
 		public static boolean confirmAction(Player p) {
-			if ( returnConfirm.get(p) == true) {
+			if (returnConfirm.get(p) == null) {
+				p.sendMessage("38");
+			}
+			if (returnConfirm.get(p) == true) {
 				needsConfirmed.remove(p);
 				returnConfirm.put(p, null);
 				return true;

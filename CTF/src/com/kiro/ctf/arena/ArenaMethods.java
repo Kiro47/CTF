@@ -1,15 +1,32 @@
 package com.kiro.ctf.arena;
 
+import java.util.ArrayList;
+
+import net.md_5.bungee.api.ChatColor;
+
 import org.bukkit.entity.Player;
 
 import com.kiro.ctf.utils.SettingsManager;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class ArenaMethods {
 
-	public static boolean createArena(Player player, String name, Selection selection) {
+	private ArrayList<String> arenas;
+	private static ArenaMethods instance = new ArenaMethods();
+	
+	public static ArenaMethods getInstance() {
+		return instance;
+	}
+	
+	private ArenaMethods() {
+		arenas = new ArrayList<String>();
+		arenas.addAll(SettingsManager.getArenas().getKeys());
+	}
+	
+	public String arenaList() {
+		return arenas.toString();
+	}
+	public boolean createArena(Player player, String name, Selection selection) {
 		if (SettingsManager.getArenas().getKeys().contains(name)) {
 			player.sendMessage(ChatColor.RED + "This an arena with this name already exists!");
 			return false;
