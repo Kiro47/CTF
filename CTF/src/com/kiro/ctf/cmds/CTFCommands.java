@@ -43,7 +43,7 @@ public class CTFCommands implements CommandExecutor {
 		// ////////////////////////////////////////////////////////////////////////////////////////////////////
 		if (args.length == 0) {
 			p.sendMessage(init);
-			p.sendMessage(ChatColor.RED
+			p.sendMessage(prefix + ChatColor.RED
 					+ "Please Specify an argument! Use /ctf help for a list of commands!");
 			return true;
 		}
@@ -60,6 +60,82 @@ public class CTFCommands implements CommandExecutor {
 			p.sendMessage(pre + ChatColor.LIGHT_PURPLE + "setspawn <Arena> <Team>");
 			// HELP COMMAND
 			return true;
+		}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		if (args[0].equalsIgnoreCase("teams")) {
+			if (!(p.hasPermission(PermCache.PERM_TEAMS_LIST))) {
+		p.sendMessage(noPerm);
+		return true;
+		}
+			else {
+				SpawnMethods.teams.toString();
+				return true;
+			}
+		}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		if (args[0].equalsIgnoreCase("lobby")) {
+			if (!(p.hasPermission(PermCache.PERM_LOBBY_BASE))) {
+				p.sendMessage(noPerm);
+				return true;
+			}
+			if (!(args.length ==  3)) {
+				p.sendMessage(ChatColor.RED + "Invalid Syntax! Please use all the arguments!");
+				p.sendMessage(ChatColor.DARK_RED + "/ctf lobby <set || delete || tp> <Arena Name");
+				return true;
+			}
+			if (args[1].equalsIgnoreCase("set")) {
+				if (!(p.hasPermission(PermCache.PERM_LOBBY_SET))) {
+					p.sendMessage(noPerm);
+					return true;
+				}
+				else {
+					Arena a = ArenaManager.getInstance().getArena(args[2].replace(".", ""));
+			
+					if (!(a == null)){
+						p.sendMessage(prefix + ChatColor.RED + "There is no arena by this name!");
+						p.sendMessage(prefix + ChatColor.DARK_RED + "Use (/ctf arena list) for a list of taken arenas!");
+						return true;
+					}
+					else {
+						p.sendMessage(prefix + ChatColor.GREEN + "Lobby for arena: " + a.getID() + " has been set!");
+						
+					}
+				}
+			}
+			
+			if (args[1].equalsIgnoreCase("delete")) {
+				if (!(p.hasPermission(PermCache.PERM_LOBBY_DELETE))) {
+					p.sendMessage(noPerm);
+					return true;
+				}
+				else {
+					Arena a = ArenaManager.getInstance().getArena(args[2].replace(".", ""));
+					if (a == null) {
+//////////////////						p.sendMessage("");
+					}
+				}
+				
+			}
+			if (args[1].equalsIgnoreCase("warp")) {
+				if (!(p.hasPermission(PermCache.PERM_LOBBY_TELEPORT))){
+					p.sendMessage(noPerm);
+					return true;
+				}
+				if (!(args.length == 3)) {
+					p.sendMessage(prefix + ChatColor.RED + "Invalid Syntax! Please select which arena's lobby to warp too!");
+					p.sendMessage(prefix + ChatColor.DARK_RED + "/ctf lobby war[ <ArenaName>");
+					return true;
+				}
+				else {
+					Arena a = ArenaManager.getInstance().getArena(args[2].replace(".", ""));
+					
+				}
+			}
+			else {
+				p.sendMessage(prefix + ChatColor.RED + "Invalid Syntax! Please use all the arguments!");
+				p.sendMessage(prefix + ChatColor.DARK_RED + "/ctf lobby <set || delete || tp> <Arena Name");
+				return true;
+			}
 		}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		if (args[0].equalsIgnoreCase("setspawn")) {
@@ -82,7 +158,7 @@ public class CTFCommands implements CommandExecutor {
 				return true;
 			 }
 			 if (!(SpawnMethods.teams.contains(team))) {
-				 p.sendMessage(prefix + ChatColor.RED + "Team: " + team + " is not a valid team! Use /ctf listteam for a list of available ");
+				 p.sendMessage(prefix + ChatColor.RED + "Team: " + team + " is not a valid team! Use /ctf teams for a list of available ");
 				 //////////MAKE LIST TEAM COMMAND
 				 p.sendMessage(prefix + ChatColor.DARK_RED + "/ctf setspawn <Arena> <Team>");
 				 return true;
@@ -214,7 +290,7 @@ public class CTFCommands implements CommandExecutor {
 					p.sendMessage(noPerm);
 					return true;
 				} else {
-					p.sendMessage(prefix + ChatColor.GREEN + "Arenas: " + ChatColor.LIGHT_PURPLE + ArenaManager.getInstance().getArenas().toString());
+					p.sendMessage(prefix + ChatColor.GREEN + "Arenas: " + ChatColor.LIGHT_PURPLE + ArenaManager.getInstance().getArenaNames().toString());
 					return true;
 				}
 			}

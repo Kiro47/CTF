@@ -1,6 +1,7 @@
 package com.kiro.ctf.arena;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.bukkit.entity.Player;
 
@@ -48,5 +49,15 @@ public class ArenaManager {
 	
 	public ArrayList<Arena> getArenas() {
 		return arenas;
+		}
+	
+	private ArrayList<String> arenaNames = new ArrayList<String> ();
+	public ArrayList<String> getArenaNames() {
+		Iterator<Arena> it = arenas.iterator();
+		while (it.hasNext()) {
+			Arena an = (Arena) it.next();
+			arenaNames.add(an.getID());
+		}
+		return arenaNames;
 	}
 }

@@ -18,5 +18,9 @@ public class PermCache {
 	public static String PERM_ADD_SPAWN = cmd + "arena.spawn.set";
 	public static String PERM_DELETE_SPAWN = cmd + "arena.spawn.delete";
 	public static String PERM_ARENA_LIST = cmd + "arena.list";
-
+	public static String PERM_TEAMS_LIST = cmd + "teams.list";
+	public static String PERM_LOBBY_BASE = cmd + "lobby";
+	public static String PERM_LOBBY_SET = cmd + "lobby.set";
+	public static String PERM_LOBBY_DELETE = cmd + "lobby.delete";
+	public static String PERM_LOBBY_TELEPORT = cmd + "lobby.tp";
 }

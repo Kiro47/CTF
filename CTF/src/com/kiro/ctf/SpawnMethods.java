@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import com.kiro.ctf.arena.Arena;
 import com.kiro.ctf.utils.SettingsManager;
+import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
+import com.sk89q.worldedit.schematic.SchematicFormat;
 
 public class SpawnMethods {
 	public static ArrayList<String> teams = new ArrayList<String> ();
@@ -73,7 +75,7 @@ public class SpawnMethods {
 		 }
 		 Location roundloc = new Location(p.getWorld(), Math.round(p.getLocation().getX()) + 0.5, 
 				 Math.round(p.getLocation().getY()), Math.round(p.getLocation().getZ()) + 0.5);
-		 CTFMain.saveLocation(roundloc, SettingsManager.getArenas().createSection(a.getID() + ".spawns." + SettingsManager.getArenas().<ConfigurationSection>get(a.getID() + ".spawns").getKeys(false).size()));
+		 CTFMain.saveLocation(roundloc, SettingsManager.getArenas().createSection(a.getID() + ".spawns." + team));
 		 SettingsManager.getArenas().save();
 		 
 		 p.getLocation().getWorld().getBlockAt(p.getLocation().subtract(0.0, 1.0, 0.0)).setType(Material.GLOWSTONE);
@@ -86,9 +88,75 @@ public class SpawnMethods {
 		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(0.0, -1.0, 1.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
 		 p.getLocation().getWorld().getBlockAt(p.getLocation().add(1.0, -1.0, 1.0)).setTypeIdAndData(Material.WOOL.getId(), teamToWool(team), false);
 		 
-		 p.sendMessage(prefix + ChatColor.GREEN + a.getID()  + "'s spawn for team " + team+ " has been set!");
+		 p.sendMessage(prefix + ChatColor.GREEN + a.getID()  + "'s spawn for team " + team + " has been set!");
 		 return ;
 	 
 	}
 
+	public static void createLobby(Location loc, String prefix, Player p, Arena a ) {
+		World w = loc.getWorld();
+		
+		// SAVE The lobby area
+		
+		
+		// Radial 1
+		w.getBlockAt(loc.add(0.0, -1.0, 0.0)).setType(Material.GLOWSTONE);
+		w.getBlockAt(loc.add(1.0, -1.0, 0.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(1.0, -1.0, -1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(0.0, -1.0, -1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-1.0, -1.0, -1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-1.0, -1.0, 0.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-1.0, -1.0, 1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(0.0, -1.0, 1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(1.0, -1.0, 1.0)).setType(Material.GLASS);
+		
+		// Radial 2 ( x , y , z )
+		w.getBlockAt(loc.add(0.0, -1.0, 2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-1.0, -1.0, 2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-2.0, -1.0, 2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-2.0, -1.0, -1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-2.0, -1.0, 0.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-2.0, -1.0, -1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-2.0, -1.0, -2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-1.0, -1.0, -2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(0.0, -1.0, -2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(1.0, -1.0, -2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(2.0, -1.0, -2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(2.0, -1.0, -1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(2.0, -1.0, 0.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(2.0, -1.0, 1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(2.0, -1.0, 2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(1.0, -1.0, 2.0)).setType(Material.GLASS);
+		
+		// Radial 3 ( x , y , z )
+		w.getBlockAt(loc.add(0.0, -1.0, 3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(1.0, -1.0, 3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(2.0, -1.0, 3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(3.0, -1.0, 3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(3.0, -1.0, 2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(3.0, -1.0, 1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(3.0, -1.0, 0.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(3.0, -1.0, -1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(3.0, -1.0, -2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(3.0, -1.0, -3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(2.0, -1.0, -3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(1.0, -1.0, -3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(0.0, -1.0, -3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-1.0, -1.0, -3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-2.0, -1.0, -3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-3.0, -1.0, -3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-3.0, -1.0, -2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-3.0, -1.0, -1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-3.0, -1.0, 0.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-3.0, -1.0, 1.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-3.0, -1.0, 2.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-3.0, -1.0, 3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-2.0, -1.0, 3.0)).setType(Material.GLASS);
+		w.getBlockAt(loc.add(-1.0, -1.0, 3.0)).setType(Material.GLASS);
+		
+		// Radial 4 ( x , y , z )
+		
+		p.sendMessage(prefix + ChatColor.GREEN + "Lobby for arena: " + a.getID() + " has been succefully created!");
+		return;
+	}
 }

@@ -15,7 +15,8 @@ public class SettingsManager {
 			configuration = new SettingsManager("config"), 
 			arenas = new SettingsManager("arenas"),
 			signs = new SettingsManager("signs"),
-			kits = new SettingsManager("kits");
+			kits = new SettingsManager("kits"),
+			pInv = new SettingsManager("Playerinventories");
 
 	public static SettingsManager getConfig() {
 		return configuration;
@@ -31,6 +32,9 @@ public class SettingsManager {
 	
 	public static SettingsManager getKits() {
 		return kits;
+	}
+	public static SettingsManager getPlayerInventorySheet() {
+		return pInv;
 	}
 
 	private File file;

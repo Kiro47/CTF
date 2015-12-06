@@ -16,43 +16,18 @@ public class arena {
 	private static String prefix = (ChatColor.GOLD + "[" + ChatColor.AQUA
 			+ "CTF" + ChatColor.GOLD + "]  ");
 
-	@SuppressWarnings("deprecation")
 	public static void delete(final Player p, String arenaName) {
 
-		final Player player = p;
 		final String name = arenaName;
 		p.sendMessage(ChatColor.GOLD
 				+ "Please confirm or deny deleting arena: " + name);
 		p.sendMessage(ChatColor.GOLD + "Confirm with: /yes  or  /no");
 		confirm.needsConfirmed.add(p);
-		CTFMain.getPlugin().getServer().getScheduler()
-				.scheduleAsyncDelayedTask(CTFMain.getPlugin(), new Runnable() {
-					public void run() {
-						if (confirm.needsConfirmed.contains(player)) {
-							player.sendMessage(ChatColor.DARK_RED
-									+ "Deletion of arena neither confirmed nor denied! Deletion Request for kit: "
-									+ name + " has been cancelled!");
-							confirm.needsConfirmed.remove(player);
-							return;
-						} else {
-							return;
-						}
-					}
-				}, (long) 200);
-		if (confirm.confirmAction(p) == true) {
+		
 			SettingsManager.getArenas().set(name, null);
-			p.sendMessage(ChatColor.GREEN + "Arena: " + name
-					+ " has been succefully deleted!");
-			p.sendMessage(ChatColor.GREEN + "Only Effective after a reload!");
 			SettingsManager.getArenas().save();
 			return;
-		} else {
-			p.sendMessage(ChatColor.RED + "Deletion of arena: " + name
-					+ " has been cancelled!");
-			return;
 		}
-
-	}
 
 	public static void create(Player p, String arenaName, Selection sel) {
 

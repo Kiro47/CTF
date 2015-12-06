@@ -81,11 +81,6 @@ public class Arena {
 	}
 	
 	public void addPlayer(Player p) {
-		if (state == ArenaState.STARTED) {
-			p.sendMessage(ChatColor.RED + "This arena has already started.");
-			return;
-		}
-		
 		if (players.size() + 1 > spawns.size()) {
 			p.sendMessage(ChatColor.RED + "This arena is full.");
 			return;
@@ -128,13 +123,13 @@ public class Arena {
 			}
 		}
 		
-		p.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation()); // TODO: Temporary.
+		p.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation()); 
 		
 		if (players.size() <= 1) {
 			if (players.size() == 1) {
 				Bukkit.getServer().broadcastMessage(players.get(0).getName() + " has won arena " + id + "!");
 				players.remove(0);
-				players.get(0).teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation()); // TODO: Temporary.
+				players.get(0).teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation()); 
 			}
 			
 			else {
